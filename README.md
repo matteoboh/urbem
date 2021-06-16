@@ -6,7 +6,7 @@ Urban data analysis for air pollution
 
 ```sh
 # Create conda environment, install dependencies on it and activate it
-conda create --name urbem --file environment.yml
+conda env create --name urbem --file environment.yml
 conda activate urbem
 
 # Setup pre-commit and pre-push hooks
