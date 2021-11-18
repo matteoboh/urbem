@@ -3,6 +3,8 @@ channels:
   - defaults
 dependencies:
   - geopandas
+  - osmnx
+  - networkx
   - black
   - configparser
   - flake8
