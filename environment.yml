@@ -7,11 +7,17 @@ dependencies:
   - networkx
   - black
   - configparser
+  - contextily
   - flake8
   - graphviz
   - isort
   - mypy
   - pre-commit
+  - pandas-profiling
+  - pandera
+  - pip
+  - pyjanitor
+  - pysal
   - pytest
   - pytest-cov
   - python=3.8
@@ -22,5 +28,6 @@ dependencies:
   - sphinx_rtd_theme
   # jupyter lab/notebook tools
   - ipykernel
+  - ipywidgets
   - nb_black
   - watermark
