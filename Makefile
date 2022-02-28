@@ -20,7 +20,8 @@ ifeq (,$(shell which conda))
 HAS_CONDA=False
 else
 HAS_CONDA=True
-CONDA := $(shell which conda || pyenv which conda)
+MAMBA := $(shell pyenv which mamba || pyenv which conda || which mamba || which conda)
+CONDA := $(shell pyenv which conda || which conda)
 ifeq ($(CONDA_DEFAULT_ENV),$(ENV_NAME))
 ENV_IS_ACTIVE=True
 else
@@ -63,7 +64,7 @@ clean:
 conda-create-env:
 ifeq (True,$(HAS_CONDA))
 	@printf ">>> Creating '$(ENV_NAME)' conda environment. This could take a few minutes ...\n\n"
-	@$(CONDA) env create --name $(ENV_NAME) --file environment.yml
+	@$(MAMBA) env create --name $(ENV_NAME) --file environment.yml
 	@printf ">>> Adding the project to the environment...\n\n"
 else
 	@printf ">>> conda command not found. Check out that conda has been installed properly."
@@ -73,7 +74,7 @@ endif
 conda-update-env:
 ifeq (True,$(HAS_CONDA))
 	@printf ">>> Updating '$(ENV_NAME)' conda environment. This could take a few minutes ...\n\n"
-	@$(CONDA) env update --name $(ENV_NAME) --file environment.yml --prune
+	@$(MAMBA) env update --name $(ENV_NAME) --file environment.yml --prune
 	@printf ">>> Updated.\n\n"
 else
 	@printf ">>> conda command not found. Check out that conda has been installed properly."
@@ -81,22 +82,30 @@ endif
 
 ## Activate pre-commit
 install-pre-commit:
-	conda run --name '$(ENV_NAME)' pre-commit install
-	conda run --name '$(ENV_NAME)' pre-commit install -t pre-commit
-	conda run --name '$(ENV_NAME)' pre-commit install -t pre-push
+	$(CONDA) run --name '$(ENV_NAME)' pre-commit install
+	$(CONDA) run --name '$(ENV_NAME)' pre-commit install -t pre-commit
+	$(CONDA) run --name '$(ENV_NAME)' pre-commit install -t pre-push
 
 ## Deactivate pre-commit
 uninstall-pre-commit:
-	conda run --name '$(ENV_NAME)' pre-commit uninstall
+	$(CONDA) run --name '$(ENV_NAME)' pre-commit uninstall
 
 ## install package in editable mode
 install-package:
-	conda run --name '$(ENV_NAME)' python -m pip install --editable .
+	$(CONDA) run --name '$(ENV_NAME)' python -m pip install --editable .
 
 ## uninstall package
 uninstall-package:
-	conda run --name '$(ENV_NAME)' python -m pip uninstall --yes '$(PACKAGE_NAME)'
+	$(CONDA) run --name '$(ENV_NAME)' python -m pip uninstall --yes '$(PACKAGE_NAME)'
 
+## install jupyter notebook kernel
+install-kernel:
+	$(CONDA) run --name '$(ENV_NAME)' python -m ipykernel install --user --name '$(ENV_NAME)' --display-name "Python ($(ENV_NAME))"
+
+## set up conda-forge
+setup-conda-forge:
+	$(CONDA) config --add channels conda-forge
+	$(CONDA) config --set channel_priority strict
 
 #################################################################################
 # PROJECT RULES                                                                 #
