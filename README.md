@@ -2,7 +2,9 @@
 
 Urban data analysis of vehicle emissions.
  
-Urban emissions represent a major antagonist to cities' livability. In this work, we investigate vehicle emissions using both spatial and non-spatial models to study their relationships with a variety of urban features. We compare such models in terms of performance and interpretation, showing not only that a spatial model has better performances, but also that it is very powerful in explaining the roles played by the predictors in different areas of the city. In particular, we find that the CO$_2$ emissions in the city of Rome are mainly correlated with the presence of main arterial roads, but also to the population density, and to the road network density in general. Moreover, the importance of such factors changes within different areas of the city. While being an experimental proof of spatial regression's efficacy when modelling urban emissions, our work may also help in understanding the complicated relationships between the urban environment and the spatial variability of vehicle emissions in the city of Rome.
+Urban emissions represent a major antagonist to cities' livability. In this work, we investigate vehicle emissions using both spatial and non-spatial models to study their relationships with a variety of urban features. We compare such models in terms of performance and interpretation, showing not only that a spatial model has better performances, but also that it is very powerful in explaining the roles played by the predictors in different areas of the city.
+
+The code used for the experiments is organized in ```.ipynb``` files in the ```notebook``` folder.
 
 ---
 
